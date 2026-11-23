@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier — вещи для дома</title>
+    <style>
+      /* Общие стили страницы */
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        color: #26332e;
+        background: #fffefa;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .wrap {
+        width: min(1160px, calc(100% - 40px));
+        margin: auto;
+      }
+      .notice {
+        padding: 10px;
+        background: #26332e;
+        color: white;
+        text-align: center;
+        font-size: 10px;
+        letter-spacing: .16em;
+      }
+      /* Шапка сайта */
+      header {
+        height: 82px;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        border-bottom: 1px solid #e9e5dc;
+      }
+      .logo {
+        font: bold 26px Georgia, serif;
+        letter-spacing: .12em;
+      }
+      nav {
+        display: flex;
+        gap: 28px;
+        font-size: 11px;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+      }
+      .account {
+        justify-self: end;
+        font-size: 12px;
+        border: 0;
+        background: none;
+        cursor: pointer;
+        font: inherit;
+      }
+      /* Большой баннер */
+      .hero {
+        margin: 24px 0 60px;
+        min-height: 480px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        background: #f5f1e8;
+      }
+      .hero-copy {
+        padding: clamp(30px, 7vw, 84px);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+      }
+      .tag {
+        color: #728679;
+        text-transform: uppercase;
+        letter-spacing: .18em;
+        font-size: 10px;
+      }
+      h1 {
+        margin: 18px 0;
+        max-width: 430px;
+        font: 500 clamp(40px, 5vw, 64px)/1.03 Georgia, serif;
+      }
+      .hero-copy p {
+        color: #686f68;
+        font-size: 14px;
+        line-height: 1.8;
+        max-width: 360px;
+      }
+      .btn {
+        margin-top: 18px;
+        background: #26332e;
+        color: white;
+        padding: 15px 24px;
+        font-size: 10px;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+      }
+      .hero-photo {
+        min-height: 480px;
+        background: #c6b59e url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85') center/cover no-repeat;
+      }
+      .intro {
+        text-align: center;
+        margin: 0 auto 30px;
+        max-width: 530px;
+      }
+      .intro h2, .featured h2 {
+        margin: 0 0 10px;
+        font: 500 34px Georgia, serif;
+      }
+      .intro p {
+        color: #777b73;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+      /* Сетка категорий */
+      .categories {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+      .category {
+        position: relative;
+        min-height: 310px;
+        display: flex;
+        align-items: end;
+        padding: 22px;
+        color: white;
+        background-color: #b9b2a4;
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+      }
+      .category::before {
+        content: '';
+        position: absolute;
+        inset: 35% 0 0;
+        background: linear-gradient(transparent, rgba(21, 29, 25, .6));
+      }
+      .category span {
+        position: relative;
+        font: 500 25px Georgia, serif;
+      }
+      .category:nth-child(1) {
+        background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80');
+      }
+      .category:nth-child(2) {
+        background-image: url('https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=800&q=80');
+      }
+      .category:nth-child(3) {
+        background-image: url('https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=800&q=80');
+      }
+      /* Сетка товаров */
+      .featured {
+        margin-top: 65px;
+        text-align: center;
+      }
+      .featured-grid {
+        margin-top: 24px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+        text-align: left;
+      }
+      .item-photo {
+        aspect-ratio: 1/1;
+        background-size: cover;
+        background-position: center;
+        background-color: #f5f1e8;
+      }
+      .photo-painting {
+        background-image: url('https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=700&q=85');
+      }
+      .photo-lamp {
+        background-image: url('https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=700&q=85');
+      }
+      .photo-decor {
+        background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=700&q=85');
+      }
+      .photo-blanket {
+        background-image: url('https://images.unsplash.com/photo-1712544056643-a3f61b990ec8?auto=format&fit=crop&w=700&q=85');
+      }
+      .photo-pillow {
+        background-image: url('https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=700&q=85');
+      }
+      .photo-pouf {
+        background-image: url('https://images.unsplash.com/photo-1598300056393-4aac492f4344?auto=format&fit=crop&w=700&q=85');
+      }
+      .photo-textile {
+        background-image: url('https://images.unsplash.com/photo-1639422947484-5d478a46a2cf?auto=format&fit=crop&w=700&q=85');
+      }
+      .photo-cup {
+        background-image: url('https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=700&q=85');
+      }
+      .photo-plate {
+        background-image: url('https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=700&q=85');
+      }
+      .photo-tray {
+        background-image: url('https://images.unsplash.com/photo-1490312278390-ab64016e0aa9?auto=format&fit=crop&w=700&q=85');
+      }
+      #living .featured-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      #tableware .featured-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .item h3 {
+        margin: 12px 0 5px;
+        font: 500 16px Georgia, serif;
+      }
+      .item p {
+        margin: 0;
+        color: #777b73;
+        font-size: 12px;
+      }
+      .add-button {
+        margin-top: 10px;
+        padding: 9px 12px;
+        border: 1px solid #26332e;
+        background: white;
+        color: #26332e;
+        cursor: pointer;
+        font-size: 10px;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+      .add-button:hover {
+        background: #26332e;
+        color: white;
+      }
+      /* Окно корзины */
+      .cart-count {
+        display: inline-block;
+        min-width: 18px;
+        padding: 3px 5px;
+        border-radius: 20px;
+        background: #728679;
+        color: white;
+        text-align: center;
+      }
+      dialog {
+        width: min(440px, calc(100% - 30px));
+        border: 0;
+        padding: 25px;
+        color: #26332e;
+        box-shadow: 0 12px 40px #0003;
+      }
+      dialog::backdrop {
+        background: #18211dcc;
+      }
+      .cart-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .cart-title h2 {
+        margin: 0;
+        font: 500 27px Georgia, serif;
+      }
+      .close-cart {
+        border: 0;
+        background: transparent;
+        font-size: 24px;
+        cursor: pointer;
+      }
+      #cart-list {
+        padding: 8px 0;
+      }
+      .cart-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 11px 0;
+        border-bottom: 1px solid #e9e5dc;
+        font-size: 13px;
+      }
+      #cart-total {
+        font-weight: bold;
+      }
+      .collection {
+        margin-top: 58px;
+      }
+      /* Блок о магазине и преимущества */
+      .editorial {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin: 65px 0;
+        background: #e9e4d9;
+      }
+      .editorial-photo {
+        min-height: 350px;
+        background: #b8ac99 url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1000&q=85') center/cover;
+      }
+      .editorial-copy {
+        align-self: center;
+        padding: clamp(28px, 6vw, 68px);
+      }
+      .editorial-copy h2 {
+        margin: 12px 0;
+        font: 500 36px/1.1 Georgia, serif;
+      }
+      .editorial-copy p {
+        color: #686f68;
+        font-size: 14px;
+        line-height: 1.8;
+      }
+      .values {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+        margin: 55px 0;
+        text-align: center;
+      }
+      .values h3 {
+        font: 500 18px Georgia, serif;
+        margin: 10px 0 7px;
+      }
+      .values p {
+        color: #777b73;
+        font-size: 12px;
+        line-height: 1.6;
+        margin: 0;
+      }
+      .signup {
+        margin: 65px 0 30px;
+        padding: 38px 20px;
+        background: #f5f1e8;
+        text-align: center;
+      }
+      .signup h2 {
+        margin: 0 0 8px;
+        font: 500 28px Georgia, serif;
+      }
+      .signup p {
+        color: #777b73;
+        font-size: 13px;
+      }
+      footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 22px 0 30px;
+        color: #777b73;
+        font-size: 11px;
+      }
+      /* Компактная сетка для телефонов */
+      @media (max-width: 740px) {
+        .wrap {
+          width: calc(100% - 28px);
+        }
+        header {
+          height: auto;
+          min-height: 68px;
+          grid-template-columns: 1fr auto;
+        }
+        nav {
+          grid-column: 1 / -1;
+          grid-row: 2;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 17px;
+          padding: 0 0 15px;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+          margin-top: 16px;
+        }
+        .hero-copy {
+          min-height: 340px;
+        }
+        .hero-photo {
+          min-height: 330px;
+        }
+        .categories {
+          grid-template-columns: 1fr;
+        }
+        .category {
+          min-height: 260px;
+        }
+        .featured-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 22px 12px;
+        }
+        #living .featured-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        #tableware .featured-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .editorial {
+          grid-template-columns: 1fr;
+        }
+        .editorial-photo {
+          min-height: 270px;
+        }
+        .values {
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div class="notice">
+      МАЛЕНЬКИЕ РАДОСТИ ДЛЯ ВАШЕГО ДОМА — ДОСТАВКА БЕСПЛАТНО
+    </div>
+    <div class="wrap">
+
+      <header>
+        <a class="logo" href="#">ATELIER</a>
+
+        <nav aria-label="Главное меню">
+          <a href="#catalog">Каталог</a>
+          <a href="#living">Популярное</a>
+          <a href="#story">О бренде</a>
+
+        </nav>
+
+        <button class="account" id="open-cart" type="button">
+          ♡ &nbsp; Корзина
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+
+      </header>
+
+      <main>
+
+        <section class="hero">
+          <div class="hero-copy">
+            <span class="tag">Дом начинается с деталей</span>
+            <h1>Уют в каждой мелочи</h1>
+            <p>Предметы для дома, которые наполняют каждый день теплом и спокойствием. Созданы с заботой, выбраны с любовью.</p>
+            <a class="btn" href="#catalog">Открыть каталог</a>
+          </div>
+          <div class="hero-photo" role="img" aria-label="Светлая уютная гостиная"></div>
+
+        </section>
+
+        <section id="catalog">
+          <div class="intro">
+            <h2>Найдите своё</h2>
+            <p>Собрали коллекции для разных уголков дома — от тихих вечеров в гостиной до утреннего кофе на кухне.</p>
+          </div>
+          <div class="categories">
+            <a class="category" href="#living">
+              <span>Для гостиной</span>
+            </a>
+            <a class="category" href="#textile">
+              <span>Текстиль</span>
+            </a>
+            <a class="category" href="#tableware">
+              <span>Посуда и декор</span>
+            </a>
+          </div>
+
+        </section>
+
+        <!-- Товары для гостиной -->
+        <section class="featured" id="living">
+          <h2>Для гостиной</h2>
+          <div class="featured-grid">
+
+            <article class="item">
+              <div class="item-photo photo-painting" role="img" aria-label="Картина для стены"></div>
+              <h3>Картина «Тихий берег»</h3>
+              <p>4200 ₽</p>
+              <button class="add-button" type="button">В корзину</button>
+
+            </article>
+
+            <article class="item">
+              <div class="item-photo photo-lamp" role="img" aria-label="Настольная лампа"></div>
+              <h3>Лампа «Тёплый свет»</h3>
+              <p>5600 ₽</p>
+              <button class="add-button" type="button">В корзину</button>
+
+            </article>
+
+            <article class="item">
+              <div class="item-photo photo-decor" role="img" aria-label="Декор для гостиной"></div>
+              <h3>Декор «Линии»</h3>
+              <p>1800 ₽</p>
+              <button class="add-button" type="button">В корзину</button>
+
+            </article>
+
+          </div>
+
+        </section>
+
+        <!-- Текстиль -->
+        <section class="featured collection" id="textile">
+          <h2>Текстиль и уют</h2>
+          <div class="featured-grid">
+
+            <article class="item">
+              <div class="item-photo photo-blanket" role="img" aria-label="Крупный план пледа на диване"></div>
+              <h3>Плед «Мягкое утро»</h3>
+              <p>4200 ₽</p>
+              <button class="add-button" type="button">В корзину</button>
+
+            </article>
+
+            <article class="item">
+              <div class="item-photo photo-pillow" role="img" aria-label="Декоративная подушка"></div>
+              <h3>Подушка «Олива»</h3>
+              <p>2400 ₽</p>
+              <button class="add-button" type="button">В корзину</button>
+
+            </article>
+
+            <article class="item">
+              <div class="item-photo photo-pouf" role="img" aria-label="Мягкий пуф"></div>
+              <h3>Пуф «Облако»</h3>
+              <p>6900 ₽</p>
+              <button class="add-button" type="button">В корзину</button>
+
+            </article>
+
+            <article class="item">
+              <div class="item-photo photo-textile" role="img" aria-label="Крупный план покрывала"></div>
+              <h3>Покрывало «Лён»</h3>
+              <p>5100 ₽</p>
+              <button class="add-button" type="button">В корзину</button>
+
+            </article>
+
+          </div>
+
+        </section>
+
+        <!-- Посуда и сервировка -->
+        <section class="featured collection" id="tableware">
+          <h2>Посуда и сервировка</h2>
+          <div class="featured-grid">
+
+            <article class="item">
+              <div class="item-photo photo-cup" role="img" aria-label="Чашки ручной работы"></div>
+              <h3>Чашка ручной работы</h3>
+              <p>1200 ₽</p>
+              <button class="add-button" type="button">В корзину</button>
+
+            </article>
+
+            <article class="item">
+              <div class="item-photo photo-plate" role="img" aria-label="Стопка керамических тарелок"></div>
+              <h3>Тарелка «Берег»</h3>
+              <p>1800 ₽</p>
+              <button class="add-button" type="button">В корзину</button>
+
+            </article>
+
+            <article class="item">
+              <div class="item-photo photo-tray" role="img" aria-label="Поднос для сервировки"></div>
+              <h3>Поднос «Натуральный»</h3>
+              <p>2100 ₽</p>
+              <button class="add-button" type="button">В корзину</button>
+
+            </article>
+
+          </div>
+
+        </section>
+
+        <section class="editorial" id="story">
+          <div class="editorial-photo" role="img" aria-label="Уютный интерьер с предметами декора"></div>
+          <div class="editorial-copy">
+            <span class="tag">Тихие радости дома</span>
+            <h2>Пусть дома будет по-вашему</h2>
+            <p>Мы собираем вещи с характером, которые легко вписываются в интерьер и остаются с вами надолго. Сочетайте фактуры, добавляйте любимые детали — и создавайте своё место силы.</p>
+            <a class="btn" href="#catalog">Выбрать детали</a>
+          </div>
+
+        </section>
+
+        <section class="values" aria-label="Наши ценности">
+
+          <article>
+            <span class="tag">01</span>
+            <h3>Натуральные фактуры</h3>
+            <p>Керамика, хлопок и дерево с приятной текстурой.</p>
+
+          </article>
+
+          <article>
+            <span class="tag">02</span>
+            <h3>Небольшие мастерские</h3>
+            <p>Сотрудничаем с авторами и локальными брендами.</p>
+
+          </article>
+
+          <article>
+            <span class="tag">03</span>
+            <h3>Подарки с душой</h3>
+            <p>Поможем собрать набор для важного повода.</p>
+
+          </article>
+
+        </section>
+
+        <section class="signup" id="subscribe">
+          <h2>Письма о красивом</h2>
+          <p>Новости, идеи и небольшие поводы порадовать себя.</p>
+          <a class="btn" href="mailto:hello@example.com">Подписаться</a>
+
+        </section>
+
+      </main>
+
+      <dialog id="cart-dialog">
+        <div class="cart-title">
+          <h2>Корзина</h2>
+          <button class="close-cart" id="close-cart" type="button" aria-label="Закрыть">×</button>
+        </div>
+        <div id="cart-list">
+          <p>Корзина пока пуста.</p>
+        </div>
+        <p>
+          Итого:
+          <span id="cart-total">0 ₽</span>
+        </p>
+
+      </dialog>
+
+      <footer>
+        <span>© 2026 ATELIER</span>
+        <span>С заботой о вашем доме</span>
+
+      </footer>
+
+    </div>
+    <script>
+      const cart = [];
+      const cartCount = document.getElementById('cart-count');
+      const cartDialog = document.getElementById('cart-dialog');
+      const cartList = document.getElementById('cart-list');
+      const cartTotal = document.getElementById('cart-total');
+
+      document.querySelectorAll('.item').forEach(function (item) {
+        const button = item.querySelector('.add-button');
+
+        button.addEventListener('click', function () {
+          const name = item.querySelector('h3').textContent;
+          const price = Number(
+            item.querySelector('p').textContent.replace(/\D/g, '')
+          );
+
+          cart.push({ name: name, price: price });
+          cartCount.textContent = cart.length;
+          button.textContent = 'Добавлено ✓';
+
+          setTimeout(function () {
+            button.textContent = 'В корзину';
+          }, 900);
+        });
+      });
+
+      document.getElementById('open-cart').addEventListener('click', function () {
+        if (cart.length === 0) {
+          cartList.innerHTML = '<p>Корзина пока пуста.</p>';
+        } else {
+          cartList.innerHTML = cart.map(function (product) {
+            return (
+              '<div class="cart-row"><span>' +
+              product.name +
+              '</span><span>' +
+              product.price.toLocaleString('ru-RU') +
+              ' ₽</span></div>'
+            );
+          }).join('');
+        }
+
+        const total = cart.reduce(function (sum, product) {
+          return sum + product.price;
+        }, 0);
+
+        cartTotal.textContent = total.toLocaleString('ru-RU') + ' ₽';
+        cartDialog.showModal();
+      });
+
+      document.getElementById('close-cart').addEventListener('click', function () {
+        cartDialog.close();
+      });
+    </script>
+
+  </body>
+
+</html>
